@@ -90,7 +90,7 @@ const Register = () => {
         <span className='mx-2 font-bold text-gray-400'>OR</span>
         <div className='flex-1 border-t border-gray-400'></div>
       </div>
-              <a href="http://localhost:5000/api/auth/google" className="flex items-center justify-center gap-3 w-full border border-gray-300 py-2 rounded-3xl font-bold hover:bg-gray-100 transition">
+              <a href={`${import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000'}/api/auth/google`} className="flex items-center justify-center gap-3 w-full border border-gray-300 py-2 rounded-3xl font-bold hover:bg-gray-100 transition">
               <img src={googleLogo} alt="Google logo" className="w-6 h-6" />
               <p className="font-semibold">Continue with Google</p>
                </a>
