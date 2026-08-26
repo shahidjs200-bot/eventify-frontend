@@ -7,7 +7,7 @@ import CreateEvent from "./assets/CreateEvent";
 import FindEvents  from "./assets/FindEvents";
 import Myevent     from './assets/Myevent';
 import EditEvent   from './assets/EditEvent';
-import EventDetail from './assets/EventDetail';   // ← NEW
+import EventDetail from "./assets/EventDetail";  // ← NEW
 import AuthProvider from './context/Authcontext';
 import PaymentPage from './assets/PaymentPage';
 import PaymentSuccess from './assets/PaymentSuccess';
