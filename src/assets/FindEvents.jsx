@@ -202,8 +202,8 @@ const FindEvents = () => {
 
   const handleApply = () => {
     setSearchParams({
-      event:    eventQuery,
-      location: locationQuery,
+      event:    "",
+      location: "",
       category: selectedCategory || "",
       date:     selectedDate     || "",
       price:    selectedPrice    || "",   // sends "free", "0-500" etc. to backend
