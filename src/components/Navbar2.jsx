@@ -42,7 +42,7 @@ const Navbar2 = () => {
           <div className="flex flex-1 border-[2px] border-gray-300 hover:border-purple-600 rounded-full overflow-hidden">
             <div className="flex items-center w-1/2">
               <img src={searchicon} className="w-5 h-5 ml-4 flex-shrink-0" />
-              <input type="text" placeholder="Search Events..."
+              <input type="text" placeholder="Search by keyword only..."
                 className="px-4 w-full rounded-full focus:outline-none text-sm"
                 onChange={(e) => setsearchEvent(e.target.value)} />
             </div>
@@ -145,7 +145,7 @@ const Navbar2 = () => {
         <div className="flex w-full border-[2px] border-gray-300 hover:border-purple-600 rounded-full mt-3 mb-2 overflow-hidden">
           <div className="flex items-center w-1/2">
             <img src={searchicon} className="w-5 h-5 ml-4 flex-shrink-0" />
-            <input type="text" placeholder="Search Events..."
+            <input type="text" placeholder="Search by keyword only..."
               className="px-3 w-full focus:outline-none text-sm py-2"
               onChange={(e) => setsearchEvent(e.target.value)} />
           </div>
@@ -206,7 +206,7 @@ const Navbar2 = () => {
         <div className="flex w-full mt-2 mb-1 border-[2px] border-gray-300 rounded-full overflow-hidden">
           <div className="flex items-center flex-1">
             <img src={searchicon} className="w-4 h-4 ml-3 flex-shrink-0" />
-            <input type="text" placeholder="Search events..."
+            <input type="text" placeholder="Search by keyword only..."
               className="py-2 px-3 w-full focus:outline-none text-sm"
               onChange={(e) => setsearchEvent(e.target.value)} />
           </div>
