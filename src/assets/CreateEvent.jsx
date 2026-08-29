@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AppNavbar from "../components/AppNavbar";
 import Footer from "../components/Footer";
 import API from "./api";
+import {toast} from "react-hot-toaster";
 
 const CATEGORIES = ["Music","Nightlife","Arts","Food & Drink","Hobbies","Dating","Holidays","Wellness","Sports","Business"];
 const LANGUAGES  = ["English","Hindi","Marathi","Tamil","Telugu","French","Spanish"];
@@ -75,10 +76,18 @@ const CreateEvent = () => {
       reset();
       setImage(null);
       setPreview(null);
+      toast.success("Event created successfully!");
       navigate("/my-events");
     } catch (err) {
-      if (err.response?.status === 401) navigate("/login");
-      else alert("Something went wrong. Please try again.");
+      if (err.response?.status === 401){
+         toast.error("Please login to create an event.");
+         navigate("/login");
+      }else{
+         console.log("Create event error:", err.response?.data); 
+         toast.error( err.response?.data?.message || 
+          "Something went wrong. Please try again." 
+        );
+      }
     }
   };
 

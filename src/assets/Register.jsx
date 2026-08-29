@@ -6,7 +6,7 @@ import googleLogo from "../assets/google-icon-logo-svgrepo-com.svg";
 import {useForm} from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth.js';
-
+import {toast} from "react-hot-toast";
 
 const Register = () => {
 
@@ -19,10 +19,11 @@ const Register = () => {
     
     const navigate = useNavigate();
     const {setUser} = useAuth();
+
     const onSubmit = async (data)=>{
       try{
         const response = await API.post('/auth/register',data);
-        alert('Register successfuly');
+        toast.success("Registration successful!");
         console.log(response.data);
         setUser(response.data);
         reset();
@@ -30,10 +31,10 @@ const Register = () => {
 
       }catch (error) {
     if (error.response && error.response.data.message) {
-      alert(error.response.data.message); // shows "user already existe"
+      toast.error(error.response.data.message);
     } else {
        console.log("Error response:", error.response?.data);
-      alert('Something went wrong. Please try again.');
+      toast.error("Something went wrong. Please try again.");
     }
     }
   }

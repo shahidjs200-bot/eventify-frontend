@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import AppNavbar from "../components/AppNavbar";
 import Footer from "../components/Footer";
 import API from "./api";
+import {toast} from "react-hot-toast";
 
 const CATEGORIES = ["Music","Nightlife","Arts","Food & Drink","Hobbies","Dating","Holidays","Wellness","Sports","Business"];
 const LANGUAGES  = ["English","Hindi","Marathi","Tamil","Telugu","French","Spanish"];
@@ -115,10 +116,20 @@ const EditEvent = () => {
       Object.entries(data).forEach(([k, v]) => formData.append(k, v));
       if (image) formData.append("image", image);
       await API.put(`/events/${id}`, formData, { withCredentials: true });
+      toast.success("Event updated successfully!");
       navigate("/my-events");
     } catch (err) {
-      if (err.response?.status === 401) navigate("/login");
-      else alert("Something went wrong. Please try again.");
+      if (err.response?.status === 401){
+        toast.error("Please login again."); 
+        navigate("/login");
+      }
+      else{ 
+        console.log("Edit event error:", err.response?.data);
+        toast.error(
+        err.response?.data?.message ||
+        "Something went wrong. Please try again."
+      );
+      }
     }
   };
 

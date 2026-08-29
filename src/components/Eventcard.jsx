@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../assets/api";
+import {toast} from "react-hot-toast";
 
 const fmtDate = (raw) => {
   if (!raw) return "";
@@ -37,10 +38,10 @@ const Eventcard = ({ event, refreshEvents, onClick }) => {
       await API.delete(`/events/${event._id}`, {
         withCredentials: true,
       });
-
+      toast.success("Event deleted successfully!");
       refreshEvents();
     } catch (err) {
-      alert("Failed to delete event.");
+      toast.error("Failed to delete event.");
       setDeleting(false);
     }
   };

@@ -5,6 +5,7 @@ import API from "./api.js";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
 import Register from './Register';
+import {toast} from "react-hot-toast";
 
 const Login = () => {
   const {
@@ -23,13 +24,14 @@ const Login = () => {
       console.log(response.data);
       setUser(response.data)
       reset();
+      toast.success("Login successful!");
       navigate('/')
     } catch (error) {
       if (error.response && error.response.data.message) {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
         console.log("Error response:", error.response?.data);
-        alert("Something went wrong. Please try again.");
+        toast.error("Something went wrong. Please try again.");
       }
     }
   };

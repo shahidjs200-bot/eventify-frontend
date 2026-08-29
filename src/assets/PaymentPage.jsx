@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import AppNavbar from "../components/AppNavbar";
 import Footer from "../components/Footer";
 import API from "./api";
+import {toast} from "react-hot-toast";
 
 const fmtPrice = (p) => (!p || Number(p) === 0 ? "Free" : `₹${p}`);
 
@@ -63,7 +64,10 @@ const PaymentPage = () => {
       // Step 2 — load Razorpay script
       const loaded = await loadRazorpayScript();
       if (!loaded) {
-        alert("Razorpay failed to load. Check your internet connection.");
+         toast.error(
+        "Razorpay failed to load. Check your internet connection."
+      );
+
         setPaying(false);
         return;
       }
@@ -92,8 +96,12 @@ const PaymentPage = () => {
             navigate(
               `/payment-success?eventId=${id}&tickets=${tickets}&amount=${data.amount}`
             );
-          } catch {
-            alert("Payment verification failed. Contact support.");
+          } catch (err) {
+            console.log("Payment verification error:", err);
+            toast.error(
+            err.response?.data?.message ||
+            "Payment verification failed. Please contact support."
+          );
           }
         },
 
@@ -117,7 +125,11 @@ const PaymentPage = () => {
       razorpay.open();
 
     } catch (err) {
-      alert("Something went wrong. Please try again.");
+      console.log("Payment error:", err);
+      toast.error(
+      err.response?.data?.message ||
+      "Something went wrong. Please try again."
+    );
       setPaying(false);
     }
   };
