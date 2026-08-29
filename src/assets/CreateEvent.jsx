@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AppNavbar from "../components/AppNavbar";
 import Footer from "../components/Footer";
 import API from "./api";
-import {toast} from "react-hot-toaster";
+import {toast} from "react-hot-toast";
 
 const CATEGORIES = ["Music","Nightlife","Arts","Food & Drink","Hobbies","Dating","Holidays","Wellness","Sports","Business"];
 const LANGUAGES  = ["English","Hindi","Marathi","Tamil","Telugu","French","Spanish"];
