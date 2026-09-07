@@ -16,6 +16,7 @@ const Navbar2 = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
+    console.log("handleSearch function called");
     navigate(`/events?event=${searchEvent}&location=${searchLocation}`);
   };
 
@@ -44,14 +45,16 @@ const Navbar2 = () => {
               <img src={searchicon} className="w-5 h-5 ml-4 flex-shrink-0" />
               <input type="text" placeholder="Search by keyword only..."
                 className="px-4 w-full rounded-full focus:outline-none text-sm"
-                onChange={(e) => setsearchEvent(e.target.value)} />
+                onChange={(e) => setsearchEvent(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()} />
             </div>
             <div className="w-px bg-gray-200 my-2" />
             <div className="flex items-center w-1/2">
               <img src={locationicon} className="w-5 h-5 ml-4 flex-shrink-0" />
               <input type="text" placeholder="Location"
                 className="py-2 px-4 w-full rounded-full focus:outline-none text-sm"
-                onChange={(e) => setsearchLocation(e.target.value)} />
+                onChange={(e) => setsearchLocation(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()} />
               <div onClick={handleSearch}
                 className="w-10 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-purple-600 mr-2 cursor-pointer hover:bg-purple-700 transition-colors">
                 <img src={searchicon} className="w-4 h-4" />
@@ -71,8 +74,11 @@ const Navbar2 = () => {
             <div onMouseEnter={() => setMenuOpen(true)} onMouseLeave={() => setMenuOpen(false)}
               className="relative h-16 flex items-center hover:bg-gray-100 px-4 cursor-pointer">
               <div className="flex items-center gap-2">
-                <img src={usericon} className="w-7 flex-shrink-0" />
-                <span className="text-sm max-w-[140px] truncate">{User?.email}</span>
+                <div className="w-8 h-8 rounded-full bg-purple-600 text-white
+                  flex items-center justify-center font-bold text-sm flex-shrink-0">
+                  {User?.email?.charAt(0).toUpperCase()}
+                </div>
+                <span className="text-sm max-w-[120px] truncate">{User?.email}</span>
               </div>
               {menuOpen && (
                 <div className="absolute right-0 top-full w-48 bg-white rounded-xl shadow-lg py-2 z-50 border border-gray-100">
@@ -84,9 +90,6 @@ const Navbar2 = () => {
                     className="flex items-center px-4 py-2.5 text-sm hover:bg-purple-50 hover:text-purple-600">
                     My Bookings
                   </NavLink>
-                  <div className="flex items-center px-4 py-2.5 text-sm hover:bg-purple-50 hover:text-purple-600 cursor-pointer">
-                    Account Setting
-                  </div>
                   <div className="border-t border-gray-100 mt-1 pt-1">
                     <div onClick={handleLogout}
                       className="flex items-center px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 cursor-pointer">
@@ -118,6 +121,15 @@ const Navbar2 = () => {
               </button>
               {menuOpen && (
                 <div className="absolute right-0 top-10 w-48 bg-white rounded-xl shadow-lg py-2 z-50 border border-gray-100">
+                  {User && (
+                <div className="flex items-center gap-2 px-4 py-2.5 border-b border-gray-100">
+                <div className="w-7 h-7 rounded-full bg-purple-600 text-white
+                  flex items-center justify-center font-bold text-sm flex-shrink-0">
+                  {User?.email?.charAt(0).toUpperCase()}
+                </div>
+                <span className="text-sm max-w-[120px] truncate">{User?.email}</span>
+              </div>
+                )}
                   <NavLink to="/events" onClick={() => setMenuOpen(false)}
                     className="flex items-center px-4 py-2.5 text-sm hover:bg-purple-50 hover:text-purple-600">
                     Find Events
@@ -126,9 +138,6 @@ const Navbar2 = () => {
                     className="flex items-center px-4 py-2.5 text-sm hover:bg-purple-50 hover:text-purple-600">
                     My Bookings
                   </NavLink>
-                  <div className="flex items-center px-4 py-2.5 text-sm hover:bg-purple-50 hover:text-purple-600 cursor-pointer">
-                    Account Setting
-                  </div>
                   <div className="border-t border-gray-100 mt-1 pt-1">
                     <div onClick={handleLogout}
                       className="flex items-center px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 cursor-pointer">
@@ -147,14 +156,16 @@ const Navbar2 = () => {
             <img src={searchicon} className="w-5 h-5 ml-4 flex-shrink-0" />
             <input type="text" placeholder="Search by keyword only..."
               className="px-3 w-full focus:outline-none text-sm py-2"
-              onChange={(e) => setsearchEvent(e.target.value)} />
+              onChange={(e) => setsearchEvent(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()} />
           </div>
           <div className="w-px bg-gray-200 my-2" />
           <div className="flex items-center w-1/2">
             <img src={locationicon} className="w-5 h-5 ml-3 flex-shrink-0" />
             <input type="text" placeholder="Location"
               className="px-3 w-full focus:outline-none text-sm py-2"
-              onChange={(e) => setsearchLocation(e.target.value)} />
+              onChange={(e) => setsearchLocation(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()} />
             <div onClick={handleSearch}
               className="w-9 h-7 flex-shrink-0 flex items-center justify-center rounded-full bg-purple-600 mr-2 cursor-pointer">
               <img src={searchicon} className="w-4 h-4" />
@@ -170,7 +181,10 @@ const Navbar2 = () => {
           <Link to="/" className="text-xl font-bold text-purple-600">Eventify</Link>
           <div className="flex items-center gap-3">
             <NavLink to="/create-event" className={({ isActive }) => isActive ? "text-purple-600 text-xs font-semibold" : "text-xs font-semibold hover:text-purple-600"}>
-              Create
+              Create Events
+            </NavLink>
+            <NavLink to="/my-events" className={({ isActive }) => isActive ? "text-purple-600 text-xs font-semibold" : "text-xs font-semibold hover:text-purple-600"}>
+              My Events
             </NavLink>
             <div className="relative">
               <button onClick={() => setMenuOpen(!menuOpen)} className="text-2xl text-purple-600">
@@ -178,13 +192,18 @@ const Navbar2 = () => {
               </button>
               {menuOpen && (
                 <div className="absolute right-0 top-10 w-48 bg-white rounded-xl shadow-lg py-2 z-50 border border-gray-100">
+                {User && (
+                <div className="flex items-center gap-2 px-4 py-2.5 border-b border-gray-100">
+                <div className="w-7 h-7 rounded-full bg-purple-600 text-white
+                  flex items-center justify-center font-bold text-sm flex-shrink-0">
+                  {User?.email?.charAt(0).toUpperCase()}
+                </div>
+                <span className="text-sm max-w-[120px] truncate">{User?.email}</span>
+              </div>
+                )}
                   <NavLink to="/events" onClick={() => setMenuOpen(false)}
                     className="flex items-center px-4 py-2.5 text-sm hover:bg-purple-50 hover:text-purple-600">
                     Find Events
-                  </NavLink>
-                  <NavLink to="/my-events" onClick={() => setMenuOpen(false)}
-                    className="flex items-center px-4 py-2.5 text-sm hover:bg-purple-50 hover:text-purple-600">
-                    My Events
                   </NavLink>
                   <NavLink to="/my-bookings" onClick={() => setMenuOpen(false)}
                     className="flex items-center px-4 py-2.5 text-sm hover:bg-purple-50 hover:text-purple-600">
@@ -208,7 +227,8 @@ const Navbar2 = () => {
             <img src={searchicon} className="w-4 h-4 ml-3 flex-shrink-0" />
             <input type="text" placeholder="Search by keyword only..."
               className="py-2 px-3 w-full focus:outline-none text-sm"
-              onChange={(e) => setsearchEvent(e.target.value)} />
+              onChange={(e) => setsearchEvent(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}/>
           </div>
           <div onClick={handleSearch}
             className="w-9 h-8 flex-shrink-0 flex items-center justify-center rounded-full bg-purple-600 mr-1 my-auto cursor-pointer">
